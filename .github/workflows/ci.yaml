@@ -3,7 +3,7 @@ on:
   pull_request:
   push:
     branches:
-      - master
+      - main
 jobs:
   build-linux:
     name: Build
@@ -17,10 +17,6 @@ jobs:
 
       - name: Check out code
         uses: actions/checkout@v2
-
-      - name: Install command dependencies
-        run: |
-          echo "::set-env name=GO_VERSION::$(go version | awk '{ print $3}' | sed 's/^go//')"
 
       - name: Lint
         run: make lint

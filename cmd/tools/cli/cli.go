@@ -29,12 +29,16 @@ var (
 )
 
 func init() {
-	rootCmd.PersistentFlags().StringVarP(&pluginRepoURI, "plugin-repo", "", plugins.DefaultPluginURI, "URI for the plugins repository. Must begin with https:// or file://")
-	rootCmd.PersistentFlags().BoolVarP(&useKubectl, "kubectl", "", false, "Use kubectl for deployment. Uses k3s when set to false")
-	rootCmd.AddCommand(versionCmd)
-	rootCmd.AddCommand(applyCmd)
-	rootCmd.AddCommand(deleteCmd)
-	rootCmd.AddCommand(listCmd)
+	setupCli(rootCmd)
+}
+
+func setupCli(baseCmd *cobra.Command) {
+	baseCmd.PersistentFlags().StringVarP(&pluginRepoURI, "plugin-repo", "", plugins.DefaultPluginURI, "URI for the plugins repository. Must begin with https:// or file://")
+	baseCmd.PersistentFlags().BoolVarP(&useKubectl, "kubectl", "", false, "Use kubectl for deployment. Uses k3s when set to false")
+	baseCmd.AddCommand(versionCmd)
+	baseCmd.AddCommand(applyCmd)
+	baseCmd.AddCommand(deleteCmd)
+	baseCmd.AddCommand(listCmd)
 }
 
 //Execute is the entrypoint of the commands
